@@ -1,0 +1,23 @@
+// dom content loaded is the even the browser sends when dom is loaded first
+// it is safer to attach to it and then do the things that i want
+// w/o it you could manipulate elements that are not in the page
+window.addEventListener("DOMContentLoaded", function (event) { })
+
+// can reuse it
+window.addEventListener("DOMContentLoaded", function (event) { })
+
+
+// has a third argument with options ??
+// AddEventListenerOptions
+const addEventListenerOptions = {
+  capture: boolean,
+  once: boolean,
+  passive: boolean,
+  signal: AbortSignal,
+}
+window.addEventListener("DOMContentLoaded", function (event) { }, addEventListenerOptions)
+
+// can create custom events
+const myCustomEvent = new Event("mycustomevent")
+let elm = document.querySelector("helllo")
+elm.dispatchEvent(myCustomEvent)

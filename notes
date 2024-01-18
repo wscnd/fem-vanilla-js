@@ -1,4 +1,4 @@
-// dom content loaded is the even the browser sends when dom is loaded first
+// NOTE: dom content loaded is the even the browser sends when dom is loaded first
 // it is safer to attach to it and then do the things that i want
 // w/o it you could manipulate elements that are not in the page
 window.addEventListener("DOMContentLoaded", function (event) { })
@@ -17,7 +17,17 @@ const addEventListenerOptions = {
 }
 window.addEventListener("DOMContentLoaded", function (event) { }, addEventListenerOptions)
 
-// can create custom events
+// NOTE: can create custom events
 const myCustomEvent = new Event("mycustomevent")
 let elm = document.querySelector("helllo")
 elm.dispatchEvent(myCustomEvent)
+
+// NOTE: Add alias to make it less verbose
+const $ = (arguments) => document.querySelector.call(this, arguments)
+const $$ = (arguments) => document.querySelectorAll.call(this, arguments)
+HTMLElement.prototype.on = (a, b, c) => this.addEventListener(a, b, c)
+HTMLElement.prototype.off = (a, b, c) => this.removeEventListener(a, b, c)
+HTMLElement.prototype.$ = (s) => this.querySelector(s)
+HTMLElement.prototype.$ = (s) => this.querySelectorAll(s)
+// then you can use it like
+let nav = $("nav")

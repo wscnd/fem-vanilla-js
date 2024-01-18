@@ -31,3 +31,27 @@ HTMLElement.prototype.$ = (s) => this.querySelector(s)
 HTMLElement.prototype.$ = (s) => this.querySelectorAll(s)
 // then you can use it like
 let nav = $("nav")
+
+
+
+// NOTE: history API
+history.pushState(optional_state, null, "/url")
+// event created:
+window.addEventListener("popstate",)
+
+
+// NOTE: WEB COMPONENTS
+class MyElement extends HTMLElement {
+  constructor() { // Set up initial state, event listeners, etc.
+    super()
+  }
+
+  // life cycle
+  connectedCallback() { } // The element is added to the document
+  disconnectedCallback() { } // The element is removed to the document
+  adoptedCallback() { } // The element has been moved to a new document, from another ShadowDOM
+
+  attributeChangedCallback(name, oldValue, newValue) { }
+}
+
+customElements.define("my-element", MyElement);

@@ -7,20 +7,25 @@ const Router = {
         this.go(event.target.getAttribute("href"))
       })
 
-      // deep linking
     })
+    // go back button
+    window.addEventListener("popstate", function (e) {
+      this.go(e.state.route, false)
+    });
+
+    // deep linking
     Router.go(location.pathname)
   },
 
-  go: (path, addToHistory = true) => {
-    console.log(`Going to ${path}`)
+  go: (route, addToHistory = true) => {
+    console.log(`Going to ${route}`)
 
     if (addToHistory) {
-      history.pushState({ path }, null, path)
+      history.pushState({ route }, null, route)
     }
 
     let pageElement = null
-    switch (path) {
+    switch (route) {
       case "/":
         pageElement = document.createElement("h1")
         pageElement.textContent = "Menu"
@@ -30,7 +35,14 @@ const Router = {
         pageElement = document.createElement("h1")
         pageElement.textContent = "Your Order"
         break
+
       default:
+        if (route.startsWith("/product-")) {
+          pageElement = document.createElement("h1")
+          pageElement.textContent = "Details"
+          const paramId = route.substring(route.lastIndexOf("-"), +1)
+          pageElement.dataset.id = paramId
+        }
         break
     }
 

@@ -1,15 +1,15 @@
 const Router = {
   init: function () {
-    document.querySelectorAll("a.navlink").forEach(a => {
-
+    document.querySelectorAll("a.navlink").forEach((a) => {
       a.addEventListener("click", event => {
         event.preventDefault()
         this.go(event.target.getAttribute("href"))
       })
 
     })
+
     // go back button
-    window.addEventListener("popstate", function (e) {
+    window.addEventListener("popstate", (e) => {
       this.go(e.state.route, false)
     });
 

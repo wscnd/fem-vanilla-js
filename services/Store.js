@@ -22,7 +22,7 @@ const handler = {
     // alternative:
     // target[prop] = newValue
     // return true
-    //
+
     return Reflect.set(...arguments)
   }
 

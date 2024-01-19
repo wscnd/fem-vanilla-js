@@ -1,7 +1,6 @@
 export class MenuPage extends HTMLElement {
   constructor() {
     super()
-
     this.root = this.attachShadow({ mode: "open" })
     this.#loadCSS(this.root)
   }
@@ -34,10 +33,10 @@ export class MenuPage extends HTMLElement {
     })
   }
 
-  render() {
+  async render() {
     const menu = this.root.querySelector("#menu")
 
-    if (!app.store.menu === null) {
+    if (app.store.menu === null) {
       menu.innerHTML = "Loading..."
       return
     }

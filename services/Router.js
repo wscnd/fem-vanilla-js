@@ -17,6 +17,10 @@ const Router = {
     Router.go(location.pathname)
   },
 
+  /**
+   * @param {string} route
+   * @param {boolean} addToHistory
+   */
   go: (route, addToHistory = true) => {
     console.log(`Going to ${route}`)
 
@@ -24,7 +28,8 @@ const Router = {
       history.pushState({ route }, null, route)
     }
 
-    let pageElement = null
+    /** @type {HTMLElement} */
+    let pageElement
     switch (route) {
       case "/":
         pageElement = document.createElement("h1")

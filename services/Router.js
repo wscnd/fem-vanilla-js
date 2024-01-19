@@ -29,7 +29,6 @@ const Router = {
 
     /** @type {HTMLElement} */
     let pageElement
-    console.log('pageElement:', pageElement)
 
     switch (route) {
       case "/":

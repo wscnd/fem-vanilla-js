@@ -27,6 +27,39 @@ export class MenuPage extends HTMLElement {
     // NOTE: the template is unusable, you have to clone and create a real instance of the template
     const content = template.content.cloneNode(true)
     this.root.appendChild(content)
+
+    // listen to custom events
+    window.addEventListener("app-menu-changed", (event) => {
+      this.render()
+    })
+  }
+
+  render() {
+    const menu = this.root.querySelector("#menu")
+
+    if (!app.store.menu === null) {
+      menu.innerHTML = "Loading..."
+      return
+    }
+
+    // clearing
+    menu.innerHTML = ""
+    for (let category of app.store.menu) {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <h3>${category.name} </h3>
+      <ul class='category'>
+
+      </ul>
+      `
+      menu.appendChild(li)
+
+      category.products.forEach(product => {
+        const item = document.createElement("product-item");
+        item.dataset.product = JSON.stringify(product)
+        li.querySelector("ul").appendChild(item)
+      })
+    }
   }
 }
 

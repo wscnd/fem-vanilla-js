@@ -1,4 +1,4 @@
-const Store = {
+const store = {
   menu: null,
   cart: []
 }
@@ -10,11 +10,23 @@ const handler = {
     console.log('prop:', prop)
     console.log('newValue:', newValue)
     console.log('receiver:', receiver)
-    return Reflect.get(...arguments)
+
+    if (prop === "menu") {
+      window.dispatchEvent(new Event("app-menu-changed"))
+    }
+
+    if (prop === "cart") {
+      window.dispatchEvent(new Event("app-cart-changed"))
+    }
+
+    // alternative:
+    // target[prop] = newValue
+    // return true
+    return Reflect.set(...arguments)
   }
 
 }
 
 const proxiedStore = new Proxy(store, handler)
 
-export default handler
+export default proxiedStore

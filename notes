@@ -41,6 +41,7 @@ window.addEventListener("popstate",)
 
 
 // NOTE: WEB COMPONENTS
+// creating components
 class MyElement extends HTMLElement {
   constructor() { // Set up initial state, event listeners, etc.
     super()
@@ -49,9 +50,63 @@ class MyElement extends HTMLElement {
   // life cycle
   connectedCallback() { } // The element is added to the document
   disconnectedCallback() { } // The element is removed to the document
+
   adoptedCallback() { } // The element has been moved to a new document, from another ShadowDOM
 
   attributeChangedCallback(name, oldValue, newValue) { }
 }
 
+// can manually call the component by name in the html
+// <my-element> </my-element>
 customElements.define("my-element", MyElement);
+
+// can bring a template that has structure inside of it &
+//  stamp it as this component's child
+// steps:
+//  1. get the template
+// append it as a child to the component
+//
+
+
+// if you want to have custom stylings and etc you need shadow dom
+// so this element's node is now a whole new html tree
+this.root = this.attachShadow({ mode: "open" })
+this.loadCSS(this.root)
+
+// can bring css files to it like so
+/**
+ * @param {ShadowRoot} node
+ * @memberof MenuPage
+ */
+async function loadCSS(node) {
+  const req = await fetch("/component.css")
+  const css = await req.text()
+
+  // create a style element and atatch this style to it
+  const styles = document.createElement("style");
+  styles.textContent = css
+  node.appendChild(styles)
+}
+
+
+// NOTE: proxies are like middlewares for objects
+// are useful to trigger updates
+// they are like reactivity
+//
+// options ,
+// get, set, has
+// deleteProperty
+// apply(calling the function)
+// construct
+// getOwnPropertyDescriptor
+// defineProperty
+// ownKeys
+//
+//
+/** @type {ProxyHandler} */
+const handler = {}
+const proxiedStore = new Proxy(object, handler)
+
+
+event.target // is the deepest element within there
+event.currentTarget // is whoever contains it

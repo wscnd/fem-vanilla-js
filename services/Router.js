@@ -14,7 +14,7 @@ const Router = {
     });
 
     // deep linking
-    Router.go(location.pathname)
+    this.go(location.pathname)
   },
 
   /**

@@ -3,6 +3,7 @@ export class MenuPage extends HTMLElement {
     super()
     this.root = this.attachShadow({ mode: "open" })
     this.#loadCSS(this.root)
+    console.log("I have been created")
   }
 
   /**
@@ -20,6 +21,7 @@ export class MenuPage extends HTMLElement {
 
   // NOTE: when the component is attached to the DOM
   connectedCallback() {
+    console.log("I have connected menu page")
     /** @type {HTMLTemplateElement} */
     const template = document.getElementById('menu-page-template');
 
@@ -32,6 +34,20 @@ export class MenuPage extends HTMLElement {
       this.render()
     })
   }
+
+  disconnectedCallback() {
+    console.log("I have connected menu page ");
+  } // The element is removed to the document
+
+  adoptedCallback() {
+    console.log("I have adopted menu page");
+
+  } // The element has been moved to a new document, from another ShadowDOM
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log("I have changed menu page");
+  }
+
 
   async render() {
     const menu = this.root.querySelector("#menu")
@@ -62,4 +78,6 @@ export class MenuPage extends HTMLElement {
   }
 }
 
+// by defining the components we're registering the component so the browser will know
+// what to do when it finds a element with this tag
 customElements.define("menu-page", MenuPage)

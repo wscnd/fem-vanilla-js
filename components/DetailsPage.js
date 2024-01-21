@@ -1,4 +1,5 @@
 import { getProductById } from '../services/Menu.js';
+import { addToCart } from '../services/Order.js';
 
 export class DetailsPage extends HTMLElement {
   constructor() {
@@ -26,7 +27,7 @@ export class DetailsPage extends HTMLElement {
     node.appendChild(styles)
   }
 
-  async renderData() {
+  async render() {
     if (!this.dataset.productId) {
       alert("Invalid Product ID");
       return
@@ -37,13 +38,13 @@ export class DetailsPage extends HTMLElement {
     this.root.querySelector(".description").textContent = this.product.description;
     this.root.querySelector(".price").textContent = `$ ${this.product.price.toFixed(2)} ea`
     this.root.querySelector("button").addEventListener("click", () => {
-      // TODO addToCart(this.product.id);
+      addToCart(this.product.id);
       app.router.go('/order');
     })
   }
 
   connectedCallback() {
-    this.renderData();
+    this.render();
   }
 
 }

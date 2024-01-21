@@ -33,6 +33,7 @@ export class MenuPage extends HTMLElement {
     window.addEventListener("app-menu-changed", (event) => {
       this.render()
     })
+    this.render()
   }
 
   disconnectedCallback() {
